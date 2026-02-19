@@ -1,5 +1,8 @@
 package com.centroweg.pablo.librarysystem.app.service;
 
+import com.centroweg.pablo.librarysystem.app.dto.UserRegisterRequest;
+import com.centroweg.pablo.librarysystem.app.dto.UserResponse;
+import com.centroweg.pablo.librarysystem.app.mapper.UserMapper;
 import com.centroweg.pablo.librarysystem.domain.User;
 import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,19 +13,21 @@ public class UserService {
 
     private final JpaUserRepository userRepository;
     private final PasswordEncoder encoder;
+    private final UserMapper userMapper;
 
-    public UserService(JpaUserRepository userRepository, PasswordEncoder encoder) {
+    public UserService(JpaUserRepository userRepository, PasswordEncoder encoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.userMapper = userMapper;
     }
 
-    public User register(User newUser) {
+    public UserResponse register(UserRegisterRequest request) {
 
-        newUser.setId(null);
+        var newUser = userMapper.toEntity(request, null);
 
-        var hashedPassword = encoder.encode(newUser.getPassword());
+        var hashedPassword = encoder.encode(request.password());
         newUser.setPassword(hashedPassword);
 
-        return userRepository.save(newUser);
+        return userMapper.toDto(userRepository.save(newUser));
     }
 }
