@@ -11,7 +11,6 @@ public class BookLending {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
     @Column(name = "book_id", nullable = false, updatable = false)
