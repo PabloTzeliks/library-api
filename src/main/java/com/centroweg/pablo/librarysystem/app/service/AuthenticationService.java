@@ -1,4 +1,4 @@
-package com.centroweg.pablo.librarysystem.service;
+package com.centroweg.pablo.librarysystem.app.service;
 
 import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRepository;
 import com.centroweg.pablo.librarysystem.infra.security.UserDetailsBadge;
