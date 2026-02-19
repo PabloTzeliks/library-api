@@ -1,5 +1,8 @@
 package com.centroweg.pablo.librarysystem.infra.web.controller;
 
+import com.centroweg.pablo.librarysystem.app.dto.UserLoginRequest;
+import com.centroweg.pablo.librarysystem.app.dto.UserRegisterRequest;
+import com.centroweg.pablo.librarysystem.app.dto.UserResponse;
 import com.centroweg.pablo.librarysystem.domain.User;
 import com.centroweg.pablo.librarysystem.app.service.AuthenticationService;
 import com.centroweg.pablo.librarysystem.app.service.UserService;
@@ -15,20 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private final AuthenticationService authService;
 
-    public UserController(UserService userService, AuthenticationService authService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.authService = authService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User newUser) {
+    public ResponseEntity<UserResponse> register(@RequestBody UserRegisterRequest request) {
 
-        User createdUser =  userService.register(newUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login()
+    public ResponseEntity<User> login(@RequestBody UserLoginRequest request) {
+
+        return ResponseEntity.ok().body(authService.loadUserByUsername(request.email()))
+    }
 }
