@@ -1,9 +1,11 @@
-package com.centroweg.pablo.librarysystem.service;
+package com.centroweg.pablo.librarysystem.app.service;
 
 import com.centroweg.pablo.librarysystem.domain.User;
 import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
 
     private final JpaUserRepository userRepository;
@@ -15,6 +17,8 @@ public class UserService {
     }
 
     public User register(User newUser) {
+
+        newUser.setId(null);
 
         var hashedPassword = encoder.encode(newUser.getPassword());
         newUser.setPassword(hashedPassword);

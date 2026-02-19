@@ -1,9 +1,9 @@
 package com.centroweg.pablo.librarysystem.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @Entity(name = "users")
 public class User {
 
@@ -19,4 +19,13 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    public User(Long id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() { }
 }
