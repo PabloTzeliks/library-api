@@ -28,10 +28,4 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(request));
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody UserLoginRequest request) {
-
-        return ResponseEntity.ok().body(authService.loadUserByUsername(request.email()))
-    }
 }
