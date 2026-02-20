@@ -3,7 +3,9 @@ package com.centroweg.pablo.librarysystem.app.mapper;
 import com.centroweg.pablo.librarysystem.app.dto.UserRegisterRequest;
 import com.centroweg.pablo.librarysystem.app.dto.UserResponse;
 import com.centroweg.pablo.librarysystem.domain.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public User toEntity(UserRegisterRequest request, Long id) {
