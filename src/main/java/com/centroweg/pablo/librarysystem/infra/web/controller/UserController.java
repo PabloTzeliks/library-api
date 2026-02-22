@@ -1,10 +1,7 @@
 package com.centroweg.pablo.librarysystem.infra.web.controller;
 
-import com.centroweg.pablo.librarysystem.app.dto.UserLoginRequest;
 import com.centroweg.pablo.librarysystem.app.dto.UserRegisterRequest;
 import com.centroweg.pablo.librarysystem.app.dto.UserResponse;
-import com.centroweg.pablo.librarysystem.domain.User;
-import com.centroweg.pablo.librarysystem.app.service.AuthenticationService;
 import com.centroweg.pablo.librarysystem.app.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +30,10 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@AuthenticationPrincipal UserDetails userDetails) {
+
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
         String email = userDetails.getUsername();
 
