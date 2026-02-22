@@ -23,6 +23,10 @@ public class UserService {
 
     public UserResponse register(UserRegisterRequest request) {
 
+        if (userRepository.findByEmail(request.email()).isPresent()) {
+            throw new BusinessRuleException("Email already in use: " + request.email());
+        }
+
         var newUser = userMapper.toEntity(request, null);
 
         var hashedPassword = encoder.encode(request.password());
