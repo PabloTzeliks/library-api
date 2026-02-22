@@ -4,6 +4,7 @@ import com.centroweg.pablo.librarysystem.app.dto.UserRegisterRequest;
 import com.centroweg.pablo.librarysystem.app.dto.UserResponse;
 import com.centroweg.pablo.librarysystem.app.mapper.UserMapper;
 import com.centroweg.pablo.librarysystem.domain.User;
+import com.centroweg.pablo.librarysystem.domain.common.exception.BusinessRuleException;
 import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,11 @@ public class UserService {
         newUser.setPassword(hashedPassword);
 
         return userMapper.toDto(userRepository.save(newUser));
+    }
+
+    public UserResponse login(String email) {
+
+        return userMapper.toDto(userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessRuleException("User not found with email: " + email)));
     }
 }
