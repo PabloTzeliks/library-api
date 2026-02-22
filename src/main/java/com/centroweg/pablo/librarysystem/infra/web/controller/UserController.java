@@ -8,6 +8,8 @@ import com.centroweg.pablo.librarysystem.app.service.AuthenticationService;
 import com.centroweg.pablo.librarysystem.app.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +29,13 @@ public class UserController {
     public ResponseEntity<UserResponse> register(@RequestBody UserRegisterRequest request) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponse> login(@AuthenticationPrincipal UserDetails userDetails) {
+
+        String email = userDetails.getUsername();
+
+        return ResponseEntity.ok(userService.login(email));
     }
 }
