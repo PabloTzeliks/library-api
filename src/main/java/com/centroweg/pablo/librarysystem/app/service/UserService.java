@@ -3,6 +3,7 @@ package com.centroweg.pablo.librarysystem.app.service;
 import com.centroweg.pablo.librarysystem.app.dto.UserRegisterRequest;
 import com.centroweg.pablo.librarysystem.app.dto.UserResponse;
 import com.centroweg.pablo.librarysystem.app.mapper.UserMapper;
+import com.centroweg.pablo.librarysystem.domain.User;
 import com.centroweg.pablo.librarysystem.domain.common.exception.BusinessRuleException;
 import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +28,7 @@ public class UserService {
             throw new BusinessRuleException("Email already in use: " + request.email());
         }
 
-        var newUser = userMapper.toEntity(request, null);
+        User newUser = userMapper.toEntity(request, null);
 
         var hashedPassword = encoder.encode(request.password());
         newUser.setPassword(hashedPassword);
