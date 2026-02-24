@@ -22,7 +22,7 @@ public class UserBook {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "book_id", nullable = false)
+    @JoinColumn(name = "book_id", nullable = false, updatable = false)
     private Book book;
 
     @Column(name = "status", nullable = false)
