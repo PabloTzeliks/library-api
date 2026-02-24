@@ -34,7 +34,7 @@ public class BookService {
     public BookResponse save(AddNewBookRequest request, String emailLogin) {
 
         var loggedUser = userRepository.findByEmail(emailLogin)
-                .orElseThrow(() -> new BusinessRuleException("User do not have access."));
+                .orElseThrow(() -> new BusinessRuleException("User does not have access."));
 
         var book = bookRepository.findByIsbn(request.bookRequest().isbn())
                 .orElseGet(() -> bookRepository.save(mapper.toDomain(request.bookRequest(), null)));
@@ -53,7 +53,7 @@ public class BookService {
     public List<BookResponse> listUserBooks(String emailLogin) {
 
         var loggedUser = userRepository.findByEmail(emailLogin)
-                .orElseThrow(() -> new BusinessRuleException("User do not have access."));
+                .orElseThrow(() -> new BusinessRuleException("User does not have access."));
 
         List<UserBook> userBooks = relationalRepository.findByUser(loggedUser);
 
