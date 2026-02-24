@@ -11,6 +11,7 @@ import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRep
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -48,5 +49,17 @@ public class BookService {
         ));
 
         return mapper.toDto(relation);
+    }
+
+    public List<BookResponse> listUserBooks(String emailLogin) {
+
+        var loggedUser = userRepository.findByEmail(emailLogin)
+                .orElseThrow(() -> new BusinessRuleException("User do not have access."));
+
+        List<UserBook> userBooks = relationalRepository.findByUser(loggedUser);
+
+        return userBooks.stream()
+                .map(mapper::toDto)
+                .toList();
     }
 }
