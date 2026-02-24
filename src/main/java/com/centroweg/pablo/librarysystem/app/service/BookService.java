@@ -10,7 +10,6 @@ import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserBoo
 import com.centroweg.pablo.librarysystem.infra.persistence.repository.JpaUserRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
