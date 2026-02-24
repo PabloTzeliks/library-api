@@ -26,6 +26,7 @@ public class UserBook {
     private Book book;
 
     @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private BookStatus status;
 
     @Column(name = "rating", nullable = false)
