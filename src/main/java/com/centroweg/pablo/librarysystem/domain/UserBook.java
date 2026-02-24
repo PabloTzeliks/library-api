@@ -34,4 +34,14 @@ public class UserBook {
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    public UserBook(Long id, User user, Book book, BookStatus status, int rating) {
+        this.id = id;
+        this.user = user;
+        this.book = book;
+        this.status = status;
+        this.rating = rating;
+    }
+
+    public UserBook() { }
 }
